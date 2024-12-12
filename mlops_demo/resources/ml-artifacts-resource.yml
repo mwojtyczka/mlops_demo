@@ -9,7 +9,7 @@ grants: &grants
   grants:
     - privileges:
         - EXECUTE
-      principal: Admins
+      principal: account users
 
 # Defines model and experiments
 resources:
