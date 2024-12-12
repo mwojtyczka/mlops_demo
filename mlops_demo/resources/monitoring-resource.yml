@@ -21,7 +21,7 @@ resources:
     mlops_demo_quality_monitor:
       table_name: main.marcin_wojtyczka.predictions
       # TODO: Update the output schema name as per your requirements
-      output_schema_name: ${bundle.target}.mlops_demo
+      output_schema_name: ${bundle.target}_mlops_demo.mlops_demo
       # TODO: Update the below parameters as per your requirements
       assets_dir: /Users/${workspace.current_user.userName}/databricks_lakehouse_monitoring
       inference_log:
