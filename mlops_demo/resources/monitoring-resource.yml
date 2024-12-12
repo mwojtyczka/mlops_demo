@@ -31,9 +31,9 @@ resources:
         label_col: price
         problem_type: PROBLEM_TYPE_REGRESSION
         timestamp_col: timestamp
-      schedule:
-        quartz_cron_expression: 0 0 8 * * ? # Run Every day at 8am
-        timezone_id: UTC
+      #schedule:
+      #  quartz_cron_expression: 0 0 8 * * ? # Run Every day at 8am
+      #  timezone_id: UTC
   jobs:
     retraining_job:
       name: ${bundle.target}-mlops_demo-monitoring-retraining-job
@@ -70,9 +70,9 @@ resources:
             job_id: ${resources.jobs.model_training_job.id}
             git_source_info: url:${bundle.git.origin_url}; branch:${bundle.git.branch}; commit:${bundle.git.commit}
 
-      schedule:
-        quartz_cron_expression: "0 0 18 * * ?" # daily at 6pm
-        timezone_id: UTC
+      #schedule:
+      #  quartz_cron_expression: "0 0 18 * * ?" # daily at 6pm
+      #  timezone_id: UTC
       <<: *permissions
       # If you want to turn on notifications for this job, please uncomment the below code,
       # and provide a list of emails to the on_failure argument.

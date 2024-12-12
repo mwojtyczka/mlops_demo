@@ -29,9 +29,9 @@ resources:
               # git source information of current ML resource deployment. It will be persisted as part of the workflow run
               git_source_info: url:${bundle.git.origin_url}; branch:${bundle.git.branch}; commit:${bundle.git.commit}
 
-      schedule:
-        quartz_cron_expression: "0 0 11 * * ?" # daily at 11am
-        timezone_id: UTC
+      #schedule:
+      #  quartz_cron_expression: "0 0 11 * * ?" # daily at 11am
+      #  timezone_id: UTC
       <<: *permissions
       # If you want to turn on notifications for this job, please uncomment the below code,
       # and provide a list of emails to the on_failure argument.

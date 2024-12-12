@@ -16,7 +16,7 @@ resources:
   registered_models:
       model:
         name: ${var.model_name}
-        catalog_name: ${bundle.target}
+        catalog_name: ${bundle.target}_mlops_demo
         schema_name: marcin_wojtyczka
         comment: Registered model in Unity Catalog for the "mlops_demo" ML Project for ${bundle.target} deployment target.
         <<: *grants
