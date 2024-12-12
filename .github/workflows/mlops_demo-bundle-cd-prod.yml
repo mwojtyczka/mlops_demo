@@ -7,7 +7,9 @@ name: Bundle Deployment for mlops_demo Prod
 on:
   push:
     branches:
-      - 'main'
+      - main
+    tags:
+      - 'v*'
   workflow_dispatch:
 
 defaults:
@@ -27,8 +29,8 @@ jobs:
       - name: Validate Bundle For Prod
         id: validate
         run: |
-          databricks bundle validate -t main
+          databricks bundle validate -t prod
       - name: Deploy Bundle to Prod
         id: deploy
         run: |
-          databricks bundle deploy -t main
+          databricks bundle deploy -t prod
