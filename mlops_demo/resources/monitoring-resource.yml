@@ -21,7 +21,7 @@ resources:
     mlops_demo_quality_monitor:
       table_name: ${bundle.target}_mlops_demo.marcin_wojtyczka.predictions
       # TODO: Update the output schema name as per your requirements
-      output_schema_name: ${bundle.target}_mlops_demo.mlops_demo
+      output_schema_name: ${bundle.target}_mlops_demo.marcin_wojtyczka
       # TODO: Update the below parameters as per your requirements
       assets_dir: /Users/${workspace.current_user.userName}/databricks_lakehouse_monitoring
       inference_log:
@@ -30,7 +30,7 @@ resources:
         prediction_col: prediction
         label_col: fare_amount
         problem_type: PROBLEM_TYPE_REGRESSION
-        timestamp_col: timestamp
+        timestamp_col: inference_timestamp
       #schedule:
       #  quartz_cron_expression: 0 0 8 * * ? # Run Every day at 8am
       #  timezone_id: UTC
