@@ -2,29 +2,30 @@
 This sample module contains features logic that can be used to generate and populate tables in Feature Store. 
 You should plug in your own features computation logic in the compute_features_fn method below.
 """
+
 import pyspark.sql.functions as F
 from pyspark.sql.types import IntegerType, StringType, TimestampType
 from pytz import timezone
 
 
 @F.udf(returnType=IntegerType())
-def _is_weekend(dt):
-    tz = "America/New_York"
-    return int(dt.astimezone(timezone(tz)).weekday() >= 5)  # 5 = Saturday, 6 = Sunday
+def _is_weekend(data_frame):
+    time_zone = "America/New_York"
+    return int(data_frame.astimezone(timezone(time_zone)).weekday() >= 5)  # 5 = Saturday, 6 = Sunday
 
 
 @F.udf(returnType=StringType())
-def _partition_id(dt):
+def _partition_id(data_frame):
     # datetime -> "YYYY-MM"
-    return f"{dt.year:04d}-{dt.month:02d}"
+    return f"{data_frame.year:04d}-{data_frame.month:02d}"
 
 
-def _filter_df_by_ts(df, ts_column, start_date, end_date):
+def _filter_df_by_ts(data_frame, ts_column, start_date, end_date):
     if ts_column and start_date:
-        df = df.filter(F.col(ts_column) >= start_date)
+        data_frame = data_frame.filter(F.col(ts_column) >= start_date)
     if ts_column and end_date:
-        df = df.filter(F.col(ts_column) < end_date)
-    return df
+        data_frame = data_frame.filter(F.col(ts_column) < end_date)
+    return data_frame
 
 
 def compute_features_fn(input_df, timestamp_column, start_date, end_date):
@@ -39,26 +40,26 @@ def compute_features_fn(input_df, timestamp_column, start_date, end_date):
 
     TODO: Update and adapt the sample code for your use case
 
-    :param input_df: Input dataframe.
-    :param timestamp_column: Column containing the timestamp. This column is used to limit the range of feature
-    computation. It is also used as the timestamp key column when populating the feature table, so it needs to be
-    returned in the output.
-    :param start_date: Start date of the feature computation interval.
-    :param end_date:  End date of the feature computation interval.
-    :return: Output dataframe containing computed features given the input arguments.
+    Args:
+        input_df (DataFrame): The input DataFrame containing raw data.
+        timestamp_column (str): The name of the timestamp column.
+        start_date (datetime): The start date for filtering the input DataFrame.
+        end_date (datetime): The end date for filtering the input DataFrame.
+
+    Returns:
+        DataFrame: The output DataFrame containing computed features.
+
     """
-    df = _filter_df_by_ts(input_df, timestamp_column, start_date, end_date)
+    data_frame = _filter_df_by_ts(input_df, timestamp_column, start_date, end_date)
     dropoffzip_features = (
-        df.groupBy("dropoff_zip", F.window(timestamp_column, "30 minute"))
+        data_frame.groupBy("dropoff_zip", F.window(timestamp_column, "30 minute"))
         .agg(F.count("*").alias("count_trips_window_30m_dropoff_zip"))
         .select(
             F.col("dropoff_zip").alias("zip"),
-            F.unix_timestamp(F.col("window.end"))
-            .alias(timestamp_column)
-            .cast(TimestampType()),
+            F.unix_timestamp(F.col("window.end")).alias(timestamp_column).cast(TimestampType()),
             _partition_id(F.to_timestamp(F.col("window.end"))).alias("yyyy_mm"),
             F.col("count_trips_window_30m_dropoff_zip").cast(IntegerType()),
-            _is_weekend(F.col("window.end")).alias("dropoff_is_weekend"),
+            _is_weekend(F.col("window.end")).alias("dropoff_is_weekend"),  # pylint: disable=no-member
         )
     )
     return dropoffzip_features

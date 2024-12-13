@@ -1,26 +1,23 @@
 import mlflow
-from pyspark.sql.functions import struct, lit, to_timestamp
+from pyspark.sql.functions import lit, to_timestamp
 
 
-def predict_batch(
-    spark_session, model_uri, input_table_name, output_table_name, model_version, ts
-):
+def predict_batch(spark_session, model_uri, input_table_name, output_table_name, model_version, ts):
     """
     Apply the model at the specified URI for batch inference on the table with name input_table_name,
     writing results to the table with name output_table_name
     """
-    
+
     mlflow.set_registry_uri("databricks-uc")
-    
+
     table = spark_session.table(input_table_name)
-         
-       
-    from databricks.feature_engineering import FeatureEngineeringClient    
-    
+
+    from databricks.feature_engineering import FeatureEngineeringClient
+
     fe_client = FeatureEngineeringClient()
-    
-    prediction_df = fe_client.score_batch(model_uri = model_uri, df = table)
-    
+
+    prediction_df = fe_client.score_batch(model_uri=model_uri, df=table)
+
     output_df = (
         prediction_df.withColumn("prediction", prediction_df["prediction"])
         .withColumn("model_version", lit(model_version))

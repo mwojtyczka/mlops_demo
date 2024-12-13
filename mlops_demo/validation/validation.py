@@ -1,6 +1,7 @@
 import numpy as np
 from mlflow.models import make_metric, MetricThreshold
 
+
 # Custom metrics to be included. Return empty list if custom metrics are not needed.
 # Please refer to custom_metrics parameter in mlflow.evaluate documentation https://mlflow.org/docs/latest/python_api/mlflow.html#mlflow.evaluate
 # TODO(optional) : custom_metrics
@@ -22,9 +23,7 @@ def custom_metrics():
 # TODO(optional) : validation_thresholds
 def validation_thresholds():
     return {
-        "max_error": MetricThreshold(
-            threshold=500, higher_is_better=False  # max_error should be <= 500
-        ),
+        "max_error": MetricThreshold(threshold=500, higher_is_better=False),  # max_error should be <= 500
         "mean_squared_error": MetricThreshold(
             threshold=500,  # mean_squared_error should be <= 500
             # min_absolute_change=0.01,  # mean_squared_error should be at least 0.01 greater than baseline model accuracy
