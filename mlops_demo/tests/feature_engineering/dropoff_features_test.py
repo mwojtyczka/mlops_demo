@@ -13,5 +13,6 @@ def test_dropoff_features_fn(spark):
     columns = ["tpep_pickup_datetime", "tpep_dropoff_datetime", "dropoff_zip", "trip_distance", "fare_amount"]
     spark_df = spark.createDataFrame(data, columns)
     output_df = compute_features_fn(spark_df, "tpep_pickup_datetime", datetime(2022, 1, 1), datetime(2022, 1, 15))
+
     assert isinstance(output_df, pyspark.sql.DataFrame)
     assert output_df.count() == 1
