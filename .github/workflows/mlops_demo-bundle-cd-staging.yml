@@ -1,13 +1,13 @@
 # This GitHub workflow deploys Bundle resources (ML resource config and more)
 # defined under mlops_demo/resources/*
 # and mlops_demo/databricks.yml with staging deployment target configs,
-# when PRs are merged into the default branch
+# when PRs are merged into the default/main branch
 name: Bundle Deployment for mlops_demo Staging
 
 on:
-  push:
-    branches:
-      - 'main'
+  pull_request:
+    types:
+      - closed # Trigger workflow when a pull request is closed (merged or not)
   workflow_dispatch:
 
 defaults:
@@ -19,6 +19,7 @@ env:
 
 jobs:
   staging:
+    if: github.event.pull_request.merged == true # Ensures it runs only if the PR is merged
     concurrency: mlops_demo-staging-bundle-job
     runs-on: ubuntu-latest
     steps:

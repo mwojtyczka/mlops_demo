@@ -35,5 +35,5 @@ targets:
 
   prod:
     workspace:
-      host: https://e2-demo-west.cloud.databricks.com/
+      host: https://e2-demo-field-eng.cloud.databricks.com
 

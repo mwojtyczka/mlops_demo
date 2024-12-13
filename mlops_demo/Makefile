@@ -17,3 +17,5 @@ fmt:
 test:
 	hatch run test
 
+coverage:
+	hatch run coverage && open htmlcov/index.html

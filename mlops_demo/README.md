@@ -1,8 +1,5 @@
 # mlops_demo
 This project comes with example ML code to train, validate and deploy a regression model to predict NYC taxi fares.
-If you're a data scientist just getting started with this repo for a brand new ML project, we recommend 
-adapting the provided example code to your ML problem. Then making and 
-testing ML code changes on Databricks or your local machine.
 
 The "Getting Started" docs can be found at https://docs.databricks.com/dev-tools/bundles/mlops-stacks.html.
 

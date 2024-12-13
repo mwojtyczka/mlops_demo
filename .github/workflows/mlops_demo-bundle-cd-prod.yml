@@ -1,15 +1,13 @@
 # This GitHub workflow deploys Bundle resources (ML resource config and more)
 # defined under mlops_demo/resources/*
 # and mlops_demo/databricks.yml with prod deployment target configs,
-# when PRs are merged into the release branch
+# when a release tag is created on the default/main branch
 name: Bundle Deployment for mlops_demo Prod
 
 on:
   push:
-    branches:
-      - main
     tags:
-      - 'v*'
+      - 'v*' # deploy to prod only if main branch is tagged
   workflow_dispatch:
 
 defaults:
@@ -21,6 +19,7 @@ env:
 
 jobs:
   prod:
+    if: github.ref == 'refs/heads/master' # Ensures it runs only if the main branch is tagged
     concurrency: mlops_demo-prod-bundle-job
     runs-on: ubuntu-latest
     steps:

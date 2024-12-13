@@ -1,3 +1,4 @@
+# This GitHub workflow uses actionlint to check the syntax of all CI/CD workflow files in the .github/workflows directory.
 name: Lint CI/CD workflow files
 on:
   pull_request:
