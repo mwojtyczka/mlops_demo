@@ -213,6 +213,8 @@ exclude_columns = ["rounded_pickup_datetime", "rounded_dropoff_datetime"]
 fe = FeatureEngineeringClient()
 
 # Create the training set that includes the raw input data merged with corresponding features from both feature tables
+# https://docs.databricks.com/en/machine-learning/feature-store/index.html
+# https://docs.databricks.com/en/machine-learning/feature-store/concepts.html#feature-lookup
 training_set = fe.create_training_set(
     df=taxi_data, # specify the df 
     feature_lookups=pickup_feature_lookups + dropoff_feature_lookups, 
@@ -246,7 +248,8 @@ from mlflow.tracking import MlflowClient
 
 features_and_label = training_df.columns
 
-# Collect data into a Pandas array for training
+# Collect data into a Pandas array for training (collect data into the drive node!)
+# If you want to do distributed training use LightGBM-Spark
 data = training_df.toPandas()[features_and_label]
 
 train, test = train_test_split(data, random_state=123)
