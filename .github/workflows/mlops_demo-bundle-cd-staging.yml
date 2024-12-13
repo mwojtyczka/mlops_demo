@@ -27,8 +27,8 @@ jobs:
       - name: Validate Bundle For Staging
         id: validate
         run: |
-          databricks bundle validate -t main
+          databricks bundle validate -t qa
       - name: Deploy Bundle to Staging
         id: deploy
         run: |
-          databricks bundle deploy -t main
+          databricks bundle deploy -t qa

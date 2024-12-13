@@ -27,19 +27,13 @@ targets:
     mode: development
     default: true
     workspace:
-      # TODO: add dev workspace URL
-      host:
+      host: https://e2-demo-field-eng.cloud.databricks.com
 
-
-
-  main:
+  qa:
     workspace:
       host: https://e2-demo-field-eng.cloud.databricks.com
 
-  main:
+  prod:
     workspace:
-      host: https://e2-demo-field-eng.cloud.databricks.com
+      host: https://e2-demo-west.cloud.databricks.com/
 
-  main:
-    workspace:
-      host: https://e2-demo-field-eng.cloud.databricks.com
