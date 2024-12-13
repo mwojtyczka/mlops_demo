@@ -20,6 +20,7 @@ def predict_batch(spark_session, model_uri, input_table_name, output_table_name,
 
     output_df = (
         prediction_df.withColumn("prediction", prediction_df["prediction"])
+        .withColumn("model_id", lit(model_uri))
         .withColumn("model_version", lit(model_version))
         .withColumn("inference_timestamp", to_timestamp(lit(ts)))
     )

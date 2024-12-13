@@ -28,7 +28,7 @@ resources:
         granularities: [1 day]
         model_id_col: model_id
         prediction_col: prediction
-        label_col: price
+        label_col: fare_amount
         problem_type: PROBLEM_TYPE_REGRESSION
         timestamp_col: timestamp
       #schedule:
