@@ -55,7 +55,7 @@ sys.path.append(str(pathlib.Path(__file__).parent.parent.parent.resolve()))
 #   END AS query_result
 # ```
 
-SQL_NAME = """WITH recent_metrics AS (
+QUERY_METRICS = """WITH recent_metrics AS (
   SELECT
     {metric_to_monitor},
     window
