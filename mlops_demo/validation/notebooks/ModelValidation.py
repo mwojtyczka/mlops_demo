@@ -114,7 +114,7 @@ mlflow.set_registry_uri('databricks-uc')
 experiment_name = dbutils.widgets.get("experiment_name")
 mlflow.set_experiment(experiment_name)
 
-# set model evaluation parameters that can be inferred from the job
+# get model params set in the upstream job (Train)
 model_uri = dbutils.jobs.taskValues.get("Train", "model_uri", debugValue="")
 model_name = dbutils.jobs.taskValues.get("Train", "model_name", debugValue="")
 model_version = dbutils.jobs.taskValues.get("Train", "model_version", debugValue="")
@@ -137,12 +137,7 @@ assert model_version != "", "model_version notebook parameter must be specified"
 enable_baseline_comparison = dbutils.widgets.get("enable_baseline_comparison")
 
 
-enable_baseline_comparison = "false" 
-print(
-    "Currently baseline model comparison is not supported for models registered with feature store. Please refer to "
-    "issue https://github.com/databricks/mlops-stacks/issues/70 for more details."
-)
-
+enable_baseline_comparison = "false"
 assert enable_baseline_comparison == "true" or enable_baseline_comparison == "false"
 enable_baseline_comparison = enable_baseline_comparison == "true"
 
