@@ -49,7 +49,7 @@ sys.path.append("../..")
 
 # COMMAND ----------
 
-from metric_violation_check_query import sql_query
+from metric_violation_check_query import QUERY_METRICS
 
 table_name_under_monitor = dbutils.widgets.get("table_name_under_monitor")
 metric_to_monitor = dbutils.widgets.get("metric_to_monitor")
@@ -57,7 +57,7 @@ metric_violation_threshold = dbutils.widgets.get("metric_violation_threshold")
 num_evaluation_windows = dbutils.widgets.get("num_evaluation_windows")
 num_violation_windows = dbutils.widgets.get("num_violation_windows")
 
-formatted_sql_query = sql_query.format(
+formatted_sql_query = QUERY_METRICS.format(
     table_name_under_monitor=table_name_under_monitor,
     metric_to_monitor=metric_to_monitor,
     metric_violation_threshold=metric_violation_threshold,
