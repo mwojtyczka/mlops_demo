@@ -18,8 +18,7 @@ include:
   - ./resources/ml-artifacts-resource.yml
   - ./resources/model-workflow-resource.yml
   - ./resources/feature-engineering-workflow-resource.yml
-  # TODO: uncomment once monitoring inference table has been created
-  # - ./resources/monitoring-resource.yml
+  - ./resources/monitoring-resource.yml
 
 # Deployment Target specific values for workspace
 targets:
