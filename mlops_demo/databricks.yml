@@ -18,7 +18,8 @@ include:
   - ./resources/ml-artifacts-resource.yml
   - ./resources/model-workflow-resource.yml
   - ./resources/feature-engineering-workflow-resource.yml
-  - ./resources/monitoring-resource.yml
+  # TODO can only be done once batch inference is run (predictions table exists).
+  #- ./resources/monitoring-resource.yml
 
 # Deployment Target specific values for workspace
 targets:
@@ -28,7 +29,11 @@ targets:
     workspace:
       host: https://e2-demo-field-eng.cloud.databricks.com
 
-  qa:
+  ci:
+    workspace:
+      host: https://e2-demo-field-eng.cloud.databricks.com
+
+  staging:
     workspace:
       host: https://e2-demo-field-eng.cloud.databricks.com
 
