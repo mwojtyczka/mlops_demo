@@ -299,9 +299,7 @@ with mlflow.start_run(
 
     try:
         eval_result = mlflow.evaluate(
-            
             model=get_fs_model,
-            
             data=data,
             targets=targets,
             model_type=model_type,
