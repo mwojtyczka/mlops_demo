@@ -18,7 +18,8 @@ include:
   - ./resources/ml-artifacts-resource.yml
   - ./resources/model-workflow-resource.yml
   - ./resources/feature-engineering-workflow-resource.yml
-  - ./resources/monitoring-resource.yml
+  # can only be run once a scoring is done (predictions table exists).
+  #- ./resources/monitoring-resource.yml
 
 # Deployment Target specific values for workspace
 targets:
