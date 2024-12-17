@@ -28,7 +28,11 @@ targets:
     workspace:
       host: https://e2-demo-field-eng.cloud.databricks.com
 
-  qa:
+  ci:
+    workspace:
+      host: https://e2-demo-field-eng.cloud.databricks.com
+
+  staging:
     workspace:
       host: https://e2-demo-field-eng.cloud.databricks.com
 

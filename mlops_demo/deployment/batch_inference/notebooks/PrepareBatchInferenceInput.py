@@ -17,6 +17,7 @@ def rounded_unix_timestamp(dt, num_minutes=15):
     delta = math.ceil(nsecs / (60 * num_minutes)) * (60 * num_minutes) - nsecs
     return int((dt + timedelta(seconds=delta)).replace(tzinfo=timezone.utc).timestamp())
 
+
 rounded_unix_timestamp_udf = F.udf(rounded_unix_timestamp, IntegerType())
 
 
