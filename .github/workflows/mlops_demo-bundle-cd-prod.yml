@@ -19,7 +19,7 @@ env:
 
 jobs:
   prod:
-    if: github.ref == 'refs/heads/main' # Ensures it runs only if the main branch is tagged
+    #if: github.ref == 'refs/heads/main' # Ensures it runs only if the main branch is tagged
     concurrency: mlops_demo-prod-bundle-job
     runs-on: ubuntu-latest
     steps:
