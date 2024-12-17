@@ -39,7 +39,6 @@ def rounded_taxi_data(taxi_data_df):
     taxi_data_df.createOrReplaceTempView("taxi_data")
     return taxi_data_df
 
-
 data = rounded_taxi_data(df)
 
 # COMMAND ----------
