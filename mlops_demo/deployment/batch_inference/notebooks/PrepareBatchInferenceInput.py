@@ -17,6 +17,7 @@ def rounded_unix_timestamp(dt, num_minutes=15):
     delta = math.ceil(nsecs / (60 * num_minutes)) * (60 * num_minutes) - nsecs
     return int((dt + timedelta(seconds=delta)).replace(tzinfo=timezone.utc).timestamp())
 
+
 rounded_unix_timestamp_udf = F.udf(rounded_unix_timestamp, IntegerType())
 
 
@@ -43,11 +44,18 @@ data = rounded_taxi_data(df)
 
 # COMMAND ----------
 
-data.write.format("delta").mode("overwrite").saveAsTable("qa_mlops_demo.marcin_wojtyczka.feature_store_inference_input")
+# MAGIC %sql
+# MAGIC create schema if not exists staging_mlops_demo.marcin_wojtyczka;
+# MAGIC create schema if not exists prod_mlops_demo.marcin_wojtyczka;
+# MAGIC create schema if not exists ci_mlops_demo.marcin_wojtyczka;
+
+# COMMAND ----------
+
+data.write.format("delta").mode("overwrite").saveAsTable("staging_mlops_demo.marcin_wojtyczka.feature_store_inference_input")
+data.write.format("delta").mode("overwrite").saveAsTable("prod_mlops_demo.marcin_wojtyczka.feature_store_inference_input")
+data.write.format("delta").mode("overwrite").saveAsTable("ci_mlops_demo.marcin_wojtyczka.feature_store_inference_input")
 
 # COMMAND ----------
 
 # MAGIC %sql
-# MAGIC select * from qa_mlops_demo.marcin_wojtyczka.feature_store_inference_input
-
-# COMMAND ----------
+# MAGIC select * from staging_mlops_demo.marcin_wojtyczka.feature_store_inference_input
